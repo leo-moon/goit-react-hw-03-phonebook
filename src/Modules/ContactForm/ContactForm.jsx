@@ -19,12 +19,16 @@ class ContactForm extends Component {
     e.preventDefault();
     this.setState(prevState => {
       const { name, number, contacts } = prevState;
+      console.log('235656', this.isDublicate(name, number));
+      if (this.isDublicate(name, number)) {
+        return alert(`${name} is already in contacts`);
+      }
       const newContact = {
         id: nanoid(),
         name: name,
         number: number,
       };
-      return { contacts: [...contacts, newContact] };
+      return { contacts: [...contacts, newContact], name: '', number: '' };
     });
   };
 
@@ -43,11 +47,24 @@ class ContactForm extends Component {
     });
   }
 
-  findContact() {}
+  isDublicate(name, number) {
+    const nameLower = name.toLowerCase();
+    const { contacts } = this.state;
+    const dublicate = contacts.find(
+      contact => contact.name.toLowerCase() === nameLower
+    );
+    console.log('888888', dublicate, nameLower, Boolean(dublicate));
+    return Boolean(dublicate);
+  }
+
+  findContact(e) {
+    const find = e.target;
+    console.log(find);
+  }
 
   render() {
     const { addContact, handleChange } = this;
-    const { contacts } = this.state;
+    const { contacts, name, number } = this.state;
     const elementsLi = contacts.map(({ id, name, number }) => (
       <li className={styles.li} key={id}>
         {name} : {number}
@@ -68,6 +85,7 @@ class ContactForm extends Component {
             <label className={styles.title}>Name</label>
             <input
               name="name"
+              value={name}
               onChange={handleChange}
               placeholder="John Miller"
               type="text"
@@ -81,6 +99,7 @@ class ContactForm extends Component {
             <label className={styles.title}>Number</label>
             <input
               name="number"
+              value={number}
               onChange={handleChange}
               placeholder="+012 123-4567"
               type="tel"
