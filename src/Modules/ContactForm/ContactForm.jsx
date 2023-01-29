@@ -17,12 +17,13 @@ class ContactForm extends Component {
 
   addContact = e => {
     e.preventDefault();
+    const { name } = this.state;
+    if (this.isDublicate(name)) {
+      return alert(`${name} is already in contacts`);
+    }
     this.setState(prevState => {
       const { name, number, contacts } = prevState;
-      console.log('235656', this.isDublicate(name, number));
-      if (this.isDublicate(name, number)) {
-        return alert(`${name} is already in contacts`);
-      }
+
       const newContact = {
         id: nanoid(),
         name: name,
@@ -40,31 +41,35 @@ class ContactForm extends Component {
   };
 
   removeContact(id) {
-    // const { contacts } = this.state;
     this.setState(({ contacts }) => {
       const newList = contacts.filter(contact => contact.id !== id);
       return { contacts: [...newList] };
     });
   }
 
-  isDublicate(name, number) {
+  isDublicate(name) {
     const nameLower = name.toLowerCase();
     const { contacts } = this.state;
     const dublicate = contacts.find(
       contact => contact.name.toLowerCase() === nameLower
     );
-    console.log('888888', dublicate, nameLower, Boolean(dublicate));
     return Boolean(dublicate);
   }
 
-  findContact(e) {
-    const find = e.target;
-    console.log(find);
+  findContact() {
+    const { filter, contacts } = this.state;
+    const filterLower = filter.toLowerCase();
+    if (!filter) return contacts;
+    const contactsFilter = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterLower)
+    );
+    return contactsFilter;
   }
 
   render() {
     const { addContact, handleChange } = this;
-    const { contacts, name, number } = this.state;
+    const { name, number } = this.state;
+    const contacts = this.findContact();
     const elementsLi = contacts.map(({ id, name, number }) => (
       <li className={styles.li} key={id}>
         {name} : {number}
@@ -116,7 +121,8 @@ class ContactForm extends Component {
           <div className={styles.block}>
             <label className={styles.title}>Find contacts by name</label>
             <input
-              onChange={() => this.findContact}
+              name="filter"
+              onChange={handleChange}
               placeholder="Name"
               type="text"
               className={styles.input}
