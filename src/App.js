@@ -1,10 +1,10 @@
-import Phonebook from 'Modules/Phonebook/Phonebook';
+import ContactForm from 'Modules/ContactForm/ContactForm';
 
 export function App() {
   return (
     <>
       <h4>Hi</h4>
-      <Phonebook />
+      <ContactForm />
     </>
   );
 }

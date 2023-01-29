@@ -1,0 +1,46 @@
+.mainTitle {
+  font-size: 26px;
+}
+
+.form {
+  width: 400px;
+  margin: 25px;
+  padding: 15px;
+  border: 1px solid rgb(30, 17, 17);
+  border-radius: 3px;
+}
+
+.block {
+  width: calc(70%);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.input {
+  padding: 3px 10px;
+  border: 1px solid rgb(30, 17, 17);
+  border-radius: 3px;
+}
+
+.btn {
+  padding: 5px 12px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-color: rgb(147, 247, 111);
+}
+
+.deleteBtn {
+  margin-left: 5px;
+  background-color: rgb(255, 0, 0);
+  color: #fff;
+}
+
+.li {
+  margin-bottom: 5px;
+}
