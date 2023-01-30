@@ -1,0 +1,22 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: calc(70%);
+  padding: 3px 10px;
+  border: 1px solid rgb(30, 17, 17);
+  border-radius: 3px;
+  &:focus {
+    border: 1.5px solid rgb(45, 24, 240);
+  }
+}

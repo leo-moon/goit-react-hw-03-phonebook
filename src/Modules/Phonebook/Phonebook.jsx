@@ -1,8 +1,10 @@
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
-import styles from './contact-form.module.scss';
+import styles from './phonebook.module.scss';
+import ContactForm from 'Modules/Phonebook/ContactForm/ContactForm';
+import FindContact from './FindContact/FindContact';
 
-class ContactForm extends Component {
+class Phonebook extends Component {
   state = {
     contacts: [
       { id: nanoid(), name: 'Rosie Simpson', number: '459-12-56' },
@@ -69,6 +71,16 @@ class ContactForm extends Component {
   render() {
     const { addContact, handleChange } = this;
     const { name, number } = this.state;
+    const contactFrm = (
+      <ContactForm
+        addContact={addContact}
+        name={name}
+        number={number}
+        handleChange={handleChange}
+      />
+    );
+    const findContact = <FindContact handleChange={handleChange} />;
+
     const contacts = this.findContact();
     const elementsLi = contacts.map(({ id, name, number }) => (
       <li className={styles.li} key={id}>
@@ -85,52 +97,12 @@ class ContactForm extends Component {
     return (
       <>
         <h3 className={styles.mainTitle}>Phonebook</h3>
-        <form action="" onSubmit={addContact} className={styles.form}>
-          <div className={styles.block}>
-            <label className={styles.title}>Name</label>
-            <input
-              name="name"
-              value={name}
-              onChange={handleChange}
-              placeholder="John Miller"
-              type="text"
-              className={styles.input}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-            />
-          </div>
-          <div className={styles.block}>
-            <label className={styles.title}>Number</label>
-            <input
-              name="number"
-              value={number}
-              onChange={handleChange}
-              placeholder="+012 123-4567"
-              className={styles.input}
-              type="tel"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-            />
-          </div>
-          <button className={styles.btn} type="submit">
-            Add contact
-          </button>
-        </form>
+        {contactFrm}
 
         <h3 className={styles.mainTitle}>Contacts</h3>
-        <div className={styles.form}>
-          <div className={styles.block}>
-            <label className={styles.title}>Find contacts by name</label>
-            <input
-              name="filter"
-              onChange={handleChange}
-              placeholder="Name"
-              type="text"
-              className={styles.input}
-            />
-          </div>
+        <div className={styles.find}>
+          {findContact}
+
           <ul>{elementsLi}</ul>
         </div>
       </>
@@ -138,4 +110,4 @@ class ContactForm extends Component {
   }
 }
 
-export default ContactForm;
+export default Phonebook;
