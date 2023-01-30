@@ -59,18 +59,6 @@ class Phonebook extends Component {
   }
 
   render() {
-    const { addContact, handleChange } = this;
-    const { name, number } = this.state;
-    const contactFrm = (
-      <ContactForm
-        addContact={addContact}
-        name={name}
-        number={number}
-        handleChange={handleChange}
-      />
-    );
-    const findContact = <FindContact handleChange={handleChange} />;
-
     const contacts = findCntct(this.state.filter, this.state.contacts);
     const elementsLi = contacts.map(({ id, name, number }) => (
       <li className={styles.li} key={id}>
@@ -84,13 +72,20 @@ class Phonebook extends Component {
         </button>
       </li>
     ));
+    const { addContact, handleChange } = this;
+    const { name, number } = this.state;
     return (
       <>
         <h3 className={styles.mainTitle}>Phonebook</h3>
-        {contactFrm}
+        <ContactForm
+          addContact={addContact}
+          name={name}
+          number={number}
+          handleChange={handleChange}
+        />
         <h3 className={styles.mainTitle}>Contacts</h3>
         <div className={styles.find}>
-          {findContact}
+          <FindContact handleChange={handleChange} />
           <ul>{elementsLi}</ul>
         </div>
       </>
