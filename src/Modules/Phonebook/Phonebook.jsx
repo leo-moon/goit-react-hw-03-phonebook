@@ -3,6 +3,7 @@ import { Component } from 'react';
 import styles from './phonebook.module.scss';
 import ContactForm from 'Modules/Phonebook/ContactForm/ContactForm';
 import FindContact from './FindContact/FindContact';
+import findCntct from '../../components/findCntct';
 
 class Phonebook extends Component {
   state = {
@@ -25,7 +26,6 @@ class Phonebook extends Component {
     }
     this.setState(prevState => {
       const { name, number, contacts } = prevState;
-
       const newContact = {
         id: nanoid(),
         name: name,
@@ -58,16 +58,6 @@ class Phonebook extends Component {
     return Boolean(dublicate);
   }
 
-  findContact() {
-    const { filter, contacts } = this.state;
-    const filterLower = filter.toLowerCase();
-    if (!filter) return contacts;
-    const contactsFilter = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filterLower)
-    );
-    return contactsFilter;
-  }
-
   render() {
     const { addContact, handleChange } = this;
     const { name, number } = this.state;
@@ -81,7 +71,7 @@ class Phonebook extends Component {
     );
     const findContact = <FindContact handleChange={handleChange} />;
 
-    const contacts = this.findContact();
+    const contacts = findCntct(this.state.filter, this.state.contacts);
     const elementsLi = contacts.map(({ id, name, number }) => (
       <li className={styles.li} key={id}>
         {name} : {number}
@@ -98,11 +88,9 @@ class Phonebook extends Component {
       <>
         <h3 className={styles.mainTitle}>Phonebook</h3>
         {contactFrm}
-
         <h3 className={styles.mainTitle}>Contacts</h3>
         <div className={styles.find}>
           {findContact}
-
           <ul>{elementsLi}</ul>
         </div>
       </>
