@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import styles from './phonebook.module.scss';
-import ContactForm from 'Modules/Phonebook/ContactForm/ContactForm';
-// import ContactFormClass from './ContactForm/ContactFormClass';
+// import ContactForm from 'Modules/Phonebook/ContactForm/ContactForm';
+import ContactFormClass from './ContactForm/ContactFormClass';
 import FindContact from './FindContact/FindContact';
 import findCntct from '../../components/findCntct';
 
@@ -15,24 +15,22 @@ class Phonebook extends Component {
       { id: nanoid(), name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
-  addContact = e => {
-    e.preventDefault();
-    const { name } = this.state;
+  addContact = ({ name, number }) => {
+    // e.preventDefault();
+    // const { name } = this.state;
     if (this.isDublicate(name)) {
       return alert(`${name} is already in contacts`);
     }
     this.setState(prevState => {
-      const { name, number, contacts } = prevState;
+      const { contacts } = prevState;
       const newContact = {
         id: nanoid(),
         name: name,
         number: number,
       };
-      return { contacts: [...contacts, newContact], name: '', number: '' };
+      return { contacts: [...contacts, newContact] };
     });
   };
 
@@ -60,7 +58,7 @@ class Phonebook extends Component {
   }
 
   componentDidMount() {
-    const contacts = JSON.parse(localStorage.getItem('phonebook'));
+    const contacts = JSON.parse(localStorage.getItem('phonebookformclass'));
     if (contacts?.length) {
       this.setState({ contacts });
     }
@@ -69,7 +67,7 @@ class Phonebook extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { contacts } = this.state;
     if (contacts.length !== prevState.contacts.length)
-      localStorage.setItem('phonebook', JSON.stringify(contacts));
+      localStorage.setItem('phonebookformclass', JSON.stringify(contacts));
   }
 
   render() {
@@ -87,17 +85,17 @@ class Phonebook extends Component {
       </li>
     ));
     const { addContact, handleChange } = this;
-    const { name, number } = this.state;
+    // const { name, number } = this.state;
     return (
       <>
-        <h3 className={styles.mainTitle}>Phonebook Form As Function</h3>
-        <ContactForm
+        <h3 className={styles.mainTitle}>Phonebook Form As Class</h3>
+        {/* <ContactForm
           addContact={addContact}
           name={name}
           number={number}
           handleChange={handleChange}
-        />
-        {/* <ContactFormClass onSubmit={addContact} /> */}
+        /> */}
+        <ContactFormClass onSubmit={addContact} />
         <h3 className={styles.mainTitle}>Contacts</h3>
         <div className={styles.find}>
           <FindContact handleChange={handleChange} />
