@@ -1,7 +1,6 @@
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import styles from './phonebook.module.scss';
-// import ContactForm from 'Modules/Phonebook/ContactForm/ContactForm';
 import ContactFormClass from './ContactForm/ContactFormClass';
 import FindContact from './FindContact/FindContact';
 import findCntct from '../../components/findCntct';
@@ -18,8 +17,6 @@ class Phonebook extends Component {
   };
 
   addContact = ({ name, number }) => {
-    // e.preventDefault();
-    // const { name } = this.state;
     if (this.isDublicate(name)) {
       return alert(`${name} is already in contacts`);
     }
@@ -85,16 +82,10 @@ class Phonebook extends Component {
       </li>
     ));
     const { addContact, handleChange } = this;
-    // const { name, number } = this.state;
     return (
       <>
-        <h3 className={styles.mainTitle}>Phonebook Form As Class</h3>
-        {/* <ContactForm
-          addContact={addContact}
-          name={name}
-          number={number}
-          handleChange={handleChange}
-        /> */}
+        <h3 className={styles.mainTitle}>Phonebook Form</h3>
+
         <ContactFormClass onSubmit={addContact} />
         <h3 className={styles.mainTitle}>Contacts</h3>
         <div className={styles.find}>

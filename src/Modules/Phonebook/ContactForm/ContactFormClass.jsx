@@ -11,7 +11,7 @@ class ContactFormClass extends Component {
     const { onSubmit } = this.props;
     const result = onSubmit({ ...this.state });
     if (result) {
-      this.reset();
+           this.reset();
     }
   };
 

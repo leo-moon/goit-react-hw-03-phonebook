@@ -2,7 +2,6 @@ import { nanoid } from 'nanoid';
 import { Component } from 'react';
 import styles from './phonebook.module.scss';
 import ContactForm from 'Modules/Phonebook/ContactForm/ContactForm';
-// import ContactFormClass from './ContactForm/ContactFormClass';
 import FindContact from './FindContact/FindContact';
 import findCntct from '../../components/findCntct';
 
@@ -97,7 +96,6 @@ class Phonebook extends Component {
           number={number}
           handleChange={handleChange}
         />
-        {/* <ContactFormClass onSubmit={addContact} /> */}
         <h3 className={styles.mainTitle}>Contacts</h3>
         <div className={styles.find}>
           <FindContact handleChange={handleChange} />
